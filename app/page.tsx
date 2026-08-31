@@ -19,7 +19,7 @@ interface Project {
 const personalInfo = {
   name: "Juan Pedro Roldán",
   role: "Ingeniería en Sistemas de Información (UTN)\nFull Stack Developer | Network Administrator",
-  about: "Desarrollador con experiencia en arquitecturas escalables, aplicaciones web y ciencia de datos. Apasionado por construir soluciones tecnológicas eficientes para problemas complejos, combinando el diseño minimalista con un backend robusto.",
+  about: "Soy Juan, tengo 23 años y soy estudiante en el último año de Ingeniería en Sistemas de Información. Me especializo en el desarrollo Full Stack, combinando experiencia práctica en administración de infraestructura de redes con desarrollo de software. Me encuentro en la búsqueda activa de nuevas oportunidades que me permitan desplegar mi conocimiento a lo largo de mi formación en desarrollo, arquitecturas, manejos de bases de datos, aportando mi responsabilidad y pasión por el desarrollo de software.",
   github: "https://github.com/juanro03",
   linkedin: "https://www.linkedin.com/in/juan-pedro-roldan/",
   email: "roldanjuan2003@gmail.com",
@@ -28,56 +28,59 @@ const personalInfo = {
 };
 
 const skills = [
-  { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+  { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+  { name: "Java", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
   { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
+  { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
   { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
   { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
-  { name: "Tailwind CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
-  { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
   { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
   { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
-  { name: "Java", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
 ];
 
 const projects: Project[] = [
   {
     title: "Terrax",
-    shortDescription: "Aplicación integral de gestión agrícola y ganadera con arquitectura basada en eventos.",
-    fullDescription: "Terrax es una plataforma diseñada para optimizar los procesos operativos y de toma de decisiones en el sector agropecuario. Centraliza el monitoreo de lotes, control de ganado y reportes de producción mediante una arquitectura desacoplada y eficiente.",
+    shortDescription: "Aplicación integral de gestión agrícola.",
+    fullDescription: "Terrax surge como una solución de negocio a una Pyme que brinda servicios de monitoreo y aplicación con drones agrícolas. La misma permite administrar usuarios a los cuales la empresa brinda servicios, poder registrar sus lotes, cargar reportes y tener una trazabilidad total de todas las campañas, datos y actividades realizadas sobre cada lote agrícola. Permite al agricultor visualizar toda la información, facilitando la toma de decisiones.",
     image: "https://images.unsplash.com/photo-1628102491629-77858ab215b2?w=800&q=80",
-    videoUrl: "/videos/terrax-demo.mp4", // Coloca tu archivo en public/videos/terrax-demo.mp4
+    videoUrl: "/videos/terrax-demo.mp4",
     features: [
-      "Monitoreo y trazabilidad de ganado y cultivos en tiempo real.",
-      "Procesamiento asíncrono de eventos y colas de mensajería.",
-      "Dashboard analítico con métricas de rendimiento y consumo.",
+      "Monitoreo de lotes agrícolas",
+      "Carga y visualización de reportes generados por drones.",
+      "Planificación de campañas de siembra y cosecha.",
+      "Calculadora de caldo para fertilización y fumigación.",
+      "Visualización de pronosticos meteorológicos y alertas de clima en lotes.",
       "Autenticación segura y control de roles de usuario."
     ],
-    technologies: ["Node.js", "React", "RabbitMQ", "PostgreSQL", "Tailwind CSS"],
-    github: "https://github.com/tu-usuario/terrax"
+    technologies: ["Python", "Django", "React", "PostgreSQL"],
+    github: "https://github.com/juanro03/Terrax_App_PF_G3"
   },
   {
-    title: "Plataforma de Análisis Predictivo",
-    shortDescription: "Pipeline ETL y modelos de Data Science desarrollados bajo metodología ágil.",
-    fullDescription: "Sistema integral de procesamiento de datos enfocado en la predicción y detección de patrones de negocio. Implementa pipelines automáticos de limpieza, transformación y exposición de modelos mediante APIs.",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+    title: "PampaGol",
+    shortDescription: "Website con información de la Liga Pampeana de fútbol. Posiciones, Resultados, Noticias, Goleadores, Clubes, Foro de debates entre hinchas. Inspirado en la antigua página de 'Promiedos'",
+    fullDescription: "Website con información de la Liga Pampeana de fútbol.\nSurge ante la falta de un sitio actualizado constantemente que permita visualizar todos los torneos, ya que los medios tradicionales suelen desactualizarse o la información queda dispersa en redes sociales. Por ejemplo, si me interesara ver como salió un partido del equipo de mi pueblo en el año 2022, quien hizo los goles, o qué equipo salió campeón, normalmente tendría que ir a buscar noticias en Google o ir muy atrás en en el tiempo en páginas informativas.\nMe pareció una exelente idea persistir lo que ocurre cada fin de semana en cada localidad de la provincia, año tras año, y que las personas que el día de mañana quieran revivir un recuerdo, goles, fechas, resultados o campeonatos, puedan hacerlo en un solo lugar.",
+    image: "./pampagol.png",
     videoUrl: "/videos/datascience-demo.mp4",
     features: [
-      "Pipeline automatizado de ingesta y transformación de datos (ETL).",
-      "Modelos de clasificación y regresión optimizados.",
-      "Endpoints REST para inferencia en tiempo real.",
-      "Visualización interactiva de métricas de precisión y recall."
+      "Posiciones de todas las Ligas y divisiones de la Liga Pampeana de Fútbol.",
+      "Resultados fecha por fecha.",
+      "Tablas de goleadores.",
+      "Persistencia de torneos y campeonatos pasados.",
+      "Foro de debates entre hinchas.",
+      "Información de clubes, historia, estadios.",
     ],
-    technologies: ["Python", "Pandas", "Scikit-Learn", "FastAPI", "Docker"],
-    link: "https://demo.tusitio.com"
+    technologies: ["Next.js", "React"],
+    link: "https://pampagol.vercel.app/"
   }
 ];
 
 const experience = [
   {
-    role: "Desarrollador Full Stack",
-    company: "Freelance",
-    date: "2024 - Presente",
-    description: "Diseño y desarrollo de aplicaciones web a medida, integrando bases de datos relacionales y APIs RESTful."
+    role: "Administrador de Redes",
+    company: "Hospital Privado de Córdoba",
+    date: "Abril 2025 - Agosto 2026",
+    description: "Administrar, monitorear y asegurar la alta disponibilidad de la red de datos hospitalaria que abarca 5 hospitales, centros médicos, y farmacias en toda la ciudad de Córdoba, a cargo de una topología de más de 100 equipos de redes, entre ellos switches Aruba/3com, routers Mikrotik, firewalls Fortinet, access points Aruba, Ubiquity. Relevamientos y soluciones de capa física, cableado estructurado.\n\nHerramientas utilizadas: Zabbix, Wireshark, OpenVPN, Mikrotik, Aruba Central, iDoit."
   }
 ];
 
@@ -85,8 +88,8 @@ const education = [
   {
     degree: "Ingeniería en Sistemas de Información",
     institution: "Universidad Tecnológica Nacional (UTN FRC)",
-    date: "2021 - Presente",
-    description: "Enfoque en desarrollo de software, ciencia de datos y gestión de proyectos."
+    date: "2021 - Dic. 2026",
+    description: "Promedio: 8,23.\n\nAprendrizaje: Diseño de Sistemas, Algortimos, Patrones de Diseño, Arquitectura de Software, Bases de Datos, Redes y Seguridad Informática, Desarrollo Web, Inteligencia Artificial, Ciencia de Datos."
   }
 ];
 
@@ -257,7 +260,7 @@ export default function Portfolio() {
                   <span>{project.title}</span>
                   <span className={`text-xs px-2 py-0.5 rounded border ${darkMode ? "border-neutral-800 text-neutral-500" : "border-neutral-200 text-neutral-400"}`}>Ver más</span>
                 </h3>
-                <p className={`text-sm line-clamp-2 ${darkMode ? "text-neutral-400" : "text-neutral-600"}`}>
+                <p className={`text-sm line-clamp-2 whitespace-pre-line ${darkMode ? "text-neutral-400" : "text-neutral-600"}`}>
                   {project.shortDescription}
                 </p>
               </button>
@@ -274,7 +277,7 @@ export default function Portfolio() {
                 <div className="space-y-1">
                   <h3 className="font-medium">{exp.role}</h3>
                   <p className="text-sm text-neutral-500">{exp.company}</p>
-                  <p className={`text-sm mt-2 max-w-xl ${darkMode ? "text-neutral-400" : "text-neutral-600"}`}>{exp.description}</p>
+                  <p className={`text-sm mt-2 max-w-xl whitespace-pre-line ${darkMode ? "text-neutral-400" : "text-neutral-600"}`}>{exp.description}</p>
                 </div>
                 <span className="text-sm shrink-0 text-neutral-500">{exp.date}</span>
               </div>
@@ -291,7 +294,7 @@ export default function Portfolio() {
                 <div className="space-y-1">
                   <h3 className="font-medium">{edu.degree}</h3>
                   <p className="text-sm text-neutral-500">{edu.institution}</p>
-                  <p className={`text-sm mt-2 max-w-xl ${darkMode ? "text-neutral-400" : "text-neutral-600"}`}>{edu.description}</p>
+                  <p className={`text-sm mt-2 max-w-xl whitespace-pre-line ${darkMode ? "text-neutral-400" : "text-neutral-600"}`}>{edu.description}</p>
                 </div>
                 <span className="text-sm shrink-0 text-neutral-500">{edu.date}</span>
               </div>
@@ -346,7 +349,7 @@ export default function Portfolio() {
             {/* Descripción detallada */}
             <div className="mt-6 space-y-2">
               <h3 className="text-sm font-semibold uppercase tracking-wider text-neutral-500">Descripción</h3>
-              <p className={`text-base leading-relaxed ${darkMode ? "text-neutral-300" : "text-neutral-700"}`}>
+              <p className={`text-base leading-relaxed whitespace-pre-line ${darkMode ? "text-neutral-300" : "text-neutral-700"}`}>
                 {selectedProject.fullDescription}
               </p>
             </div>
