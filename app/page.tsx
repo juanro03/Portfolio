@@ -90,6 +90,12 @@ const education = [
     institution: "Universidad Tecnológica Nacional (UTN FRC)",
     date: "2021 - Dic. 2026",
     description: "Promedio: 8,23.\n\nAprendrizaje: Diseño de Sistemas, Algortimos, Patrones de Diseño, Arquitectura de Software, Bases de Datos, Redes y Seguridad Informática, Desarrollo Web, Inteligencia Artificial, Ciencia de Datos."
+  },
+  {
+    degree: "Full Stack Developer",
+    institution: "Argentina Programa",
+    date: "2023",
+    description: "Java Spring Boot, Angular, MySQL."
   }
 ];
 
