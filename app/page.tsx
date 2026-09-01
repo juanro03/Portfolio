@@ -9,9 +9,9 @@ interface Project {
   shortDescription: string;
   fullDescription: string;
   image: string;
-  videoUrl?: string; // Ruta al archivo de video en /public o link directo
+  videoUrl?: string;
   features: string[];
-  technologies: string[];
+  technologies: { name: string; icon: string }[];
   link?: string;
   github?: string;
 }
@@ -29,12 +29,17 @@ const personalInfo = {
 
 const skills = [
   { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+  { name: "Django", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" },
   { name: "Java", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
+  { name: "Spring", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" },
   { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
   { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
   { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
   { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
   { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
+  { name: "Supabase", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" },
+  { name: "MySQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
+  { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
   { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
 ];
 
@@ -53,7 +58,12 @@ const projects: Project[] = [
       "Visualización de pronosticos meteorológicos y alertas de clima en lotes.",
       "Autenticación segura y control de roles de usuario."
     ],
-    technologies: ["Python", "Django", "React", "PostgreSQL"],
+    technologies: [
+      { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+      { name: "Django", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" },
+      { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+      { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-plain.svg" }
+    ],
     github: "https://github.com/juanro03/Terrax_App_PF_G3"
   },
   {
@@ -70,7 +80,12 @@ const projects: Project[] = [
       "Foro de debates entre hinchas.",
       "Información de clubes, historia, estadios.",
     ],
-    technologies: ["Next.js", "React"],
+    // Aquí está el cambio clave para PampaGol:
+    technologies: [
+      { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
+      { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+      { name: "Supabase", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" },
+    ],
     link: "https://pampagol.vercel.app/"
   }
 ];
@@ -230,8 +245,8 @@ export default function Portfolio() {
               <div
                 key={skill.name}
                 className={`h-8 w-fit px-3 flex items-center gap-2 rounded-xl border transition-colors shadow-sm ${darkMode
-                    ? "bg-black border-neutral-800 ring-2 ring-neutral-800/40 text-neutral-200"
-                    : "bg-white border-neutral-200 ring-2 ring-neutral-200/40 text-neutral-800"
+                  ? "bg-black border-neutral-800 ring-2 ring-neutral-800/40 text-neutral-200"
+                  : "bg-white border-neutral-200 ring-2 ring-neutral-200/40 text-neutral-800"
                   }`}
               >
                 <img
@@ -269,6 +284,19 @@ export default function Portfolio() {
                 <p className={`text-sm line-clamp-2 whitespace-pre-line ${darkMode ? "text-neutral-400" : "text-neutral-600"}`}>
                   {project.shortDescription}
                 </p>
+                <div className="flex flex-wrap gap-2 mt-auto pt-2">
+                  {project.technologies.map((tech) => (
+                    <div key={tech.name}
+                      className={`h-7 px-2.5 flex items-center gap-1.5 rounded-lg border transition-colors shadow-sm ${darkMode
+                        ? "bg-neutral-900/50 border-neutral-800 text-neutral-300"
+                        : "bg-neutral-50 border-neutral-200 text-neutral-700"
+                        }`}
+                    >
+                      <img src={tech.icon} alt={tech.name} className="w-3.5 h-3.5 object-contain" />
+                      <span className="text-xs font-medium">{tech.name}</span>
+                    </div>
+                  ))}
+                </div>
               </button>
             ))}
           </div>
@@ -375,17 +403,25 @@ export default function Portfolio() {
             )}
 
             {/* Tecnologías */}
-            <div className="mt-6 space-y-2">
+            {/* Tecnologías */}
+            <div className="mt-6 space-y-3">
               <h3 className="text-sm font-semibold uppercase tracking-wider text-neutral-500">Tecnologías utilizadas</h3>
               <div className="flex flex-wrap gap-2">
                 {selectedProject.technologies.map((tech) => (
-                  <span
-                    key={tech}
-                    className={`text-xs px-2.5 py-1 rounded-md border font-mono ${darkMode ? "border-neutral-800 bg-neutral-900 text-neutral-300" : "border-neutral-200 bg-neutral-100 text-neutral-700"
+                  <div
+                    key={tech.name}
+                    className={`h-8 w-fit px-3 flex items-center gap-2 rounded-xl border transition-colors shadow-sm ${darkMode
+                        ? "bg-black border-neutral-800 ring-2 ring-neutral-800/40 text-neutral-200"
+                        : "bg-white border-neutral-200 ring-2 ring-neutral-200/40 text-neutral-800"
                       }`}
                   >
-                    {tech}
-                  </span>
+                    <img
+                      src={tech.icon}
+                      alt={tech.name}
+                      className="w-4 h-4 object-contain"
+                    />
+                    <span className="text-sm font-medium">{tech.name}</span>
+                  </div>
                 ))}
               </div>
             </div>
