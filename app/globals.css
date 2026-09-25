@@ -30,3 +30,17 @@ body {
     color: #000;
   }
 }
+
+@keyframes project-image-fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.project-image-fade {
+  animation: project-image-fade-out 700ms ease-in-out forwards;
+}

@@ -1,15 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Mail, Moon, Sun, X, ExternalLink } from "lucide-react";
+import { Mail, Moon, Sun, X, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
 import { Icons } from "./components/Icons";
 
 interface Project {
   title: string;
   shortDescription: string;
   fullDescription: string;
-  image: string;
-  videoUrl?: string;
+  images: string[];
   features: string[];
   technologies: { name: string; icon: string }[];
   link?: string;
@@ -19,7 +18,7 @@ interface Project {
 const personalInfo = {
   name: "Juan Pedro Roldán",
   role: "Ingeniería en Sistemas de Información (UTN)\nFull Stack Developer | Network Administrator",
-  about: "Soy Juan, tengo 23 años y soy estudiante en el último año de Ingeniería en Sistemas de Información. Me especializo en el desarrollo Full Stack, combinando experiencia práctica en administración de infraestructura de redes con desarrollo de software. Me encuentro en la búsqueda activa de nuevas oportunidades que me permitan desplegar mi conocimiento a lo largo de mi formación en desarrollo, arquitecturas, manejos de bases de datos, aportando mi responsabilidad y pasión por el desarrollo de software.",
+  about: "Soy Juan, tengo 23 años y soy estudiante en el último año de Ingeniería en Sistemas de Información. Me especializo en Administración de Redes y Desarrollo Full Stack, combinando experiencia práctica en administración de infraestructura de redes con desarrollo de software. Me encuentro en la búsqueda activa de nuevas oportunidades que me permitan desplegar mi conocimiento a lo largo de mi formación en desarrollo, arquitecturas, manejos de bases de datos, aportando mi responsabilidad y pasión por el desarrollo de software.",
   github: "https://github.com/juanro03",
   linkedin: "https://www.linkedin.com/in/juan-pedro-roldan/",
   email: "roldanjuan2003@gmail.com",
@@ -48,8 +47,7 @@ const projects: Project[] = [
     title: "Terrax",
     shortDescription: "Aplicación integral de gestión agrícola.",
     fullDescription: "Terrax surge como una solución de negocio a una Pyme que brinda servicios de monitoreo y aplicación con drones agrícolas. La misma permite administrar usuarios a los cuales la empresa brinda servicios, poder registrar sus lotes, cargar reportes y tener una trazabilidad total de todas las campañas, datos y actividades realizadas sobre cada lote agrícola. Permite al agricultor visualizar toda la información, facilitando la toma de decisiones.",
-    image: "https://images.unsplash.com/photo-1628102491629-77858ab215b2?w=800&q=80",
-    videoUrl: "/videos/terrax-demo.mp4",
+    images: ["/Login.png", "/Home.png", "/Campos.png", "/Lotes.png","/Usuarios.png","/Calculadora.png",],
     features: [
       "Monitoreo de lotes agrícolas",
       "Carga y visualización de reportes generados por drones.",
@@ -70,8 +68,7 @@ const projects: Project[] = [
     title: "PampaGol",
     shortDescription: "Website con información de la Liga Pampeana de fútbol. Posiciones, Resultados, Noticias, Goleadores, Clubes, Foro de debates entre hinchas. Inspirado en la antigua página de 'Promiedos'",
     fullDescription: "Website con información de la Liga Pampeana de fútbol.\nSurge ante la falta de un sitio actualizado constantemente que permita visualizar todos los torneos, ya que los medios tradicionales suelen desactualizarse o la información queda dispersa en redes sociales. Por ejemplo, si me interesara ver como salió un partido del equipo de mi pueblo en el año 2022, quien hizo los goles, o qué equipo salió campeón, normalmente tendría que ir a buscar noticias en Google o ir muy atrás en en el tiempo en páginas informativas.\nMe pareció una exelente idea persistir lo que ocurre cada fin de semana en cada localidad de la provincia, año tras año, y que las personas que el día de mañana quieran revivir un recuerdo, goles, fechas, resultados o campeonatos, puedan hacerlo en un solo lugar.",
-    image: "./pampagol.png",
-    videoUrl: "/videos/datascience-demo.mp4",
+    images: ["/pampagol.png", "/PampaInicio.png","/pampamovil1.png","/pampamovil2.png","/pampamovil3.png",],
     features: [
       "Posiciones de todas las Ligas y divisiones de la Liga Pampeana de Fútbol.",
       "Resultados fecha por fecha.",
@@ -86,7 +83,7 @@ const projects: Project[] = [
       { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
       { name: "Supabase", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" },
     ],
-    link: "https://pampagol.vercel.app/"
+    link: "https://pampagol.com.ar/"
   }
 ];
 
@@ -94,8 +91,8 @@ const experience = [
   {
     role: "Administrador de Redes",
     company: "Hospital Privado de Córdoba",
-    date: "Abril 2025 - Agosto 2026",
-    description: "Administrar, monitorear y asegurar la alta disponibilidad de la red de datos hospitalaria que abarca 5 hospitales, centros médicos, y farmacias en toda la ciudad de Córdoba, a cargo de una topología de más de 100 equipos de redes, entre ellos switches Aruba/3com, routers Mikrotik, firewalls Fortinet, access points Aruba, Ubiquity. Relevamientos y soluciones de capa física, cableado estructurado.\n\nHerramientas utilizadas: Zabbix, Wireshark, OpenVPN, Mikrotik, Aruba Central, iDoit."
+    date: "Abr. 2025 - Sep. 2026",
+    description: "Administrar, monitorear y asegurar la alta disponibilidad de la red de datos hospitalaria que abarca 5 hospitales, centros médicos, y farmacias en toda la ciudad de Córdoba, a cargo de una topología de más de 30 routers mikrotik, más de 150 switches Aruba/HP/Cisco. Relevamientos y soluciones de capa física y cableado estructurado.\n\nHerramientas utilizadas: Zabbix, Wireshark, OpenVPN, Mikrotik, Aruba Central, iDoit."
   }
 ];
 
@@ -133,9 +130,33 @@ export default function Portfolio() {
   const [darkMode, setDarkMode] = useState(true);
   const [mounted, setMounted] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [projectImageIndexes, setProjectImageIndexes] = useState<Record<string, { current: number; previous: number | null }>>({});
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setProjectImageIndexes((currentIndexes) => {
+        const nextIndexes = { ...currentIndexes };
+
+        for (const project of projects) {
+          if (project.images.length > 1) {
+            const currentIndex = currentIndexes[project.title]?.current ?? 0;
+            nextIndexes[project.title] = {
+              current: (currentIndex + 1) % project.images.length,
+              previous: currentIndex,
+            };
+          }
+        }
+
+        return nextIndexes;
+      });
+    }, 4000);
+
+    return () => window.clearInterval(intervalId);
   }, []);
 
   useEffect(() => {
@@ -171,6 +192,13 @@ export default function Portfolio() {
               className={`transition-colors ${darkMode ? "text-neutral-400 hover:text-white" : "text-neutral-500 hover:text-black"}`}
             >
               Proyectos
+            </a>
+            <a
+              href="#experiencia"
+              onClick={(e) => scrollToSection(e, "experiencia")}
+              className={`transition-colors ${darkMode ? "text-neutral-400 hover:text-white" : "text-neutral-500 hover:text-black"}`}
+            >
+              Experiencia
             </a>
             <a
               href="#formacion"
@@ -267,15 +295,28 @@ export default function Portfolio() {
             {projects.map((project, idx) => (
               <button
                 key={idx}
-                onClick={() => setSelectedProject(project)}
+                onClick={() => {
+                  setSelectedImageIndex(projectImageIndexes[project.title]?.current ?? 0);
+                  setSelectedProject(project);
+                }}
                 className={`group text-left block rounded-xl border p-4 transition-all cursor-pointer hover:-translate-y-1 ${darkMode ? "border-neutral-800 hover:border-neutral-600 bg-black" : "border-neutral-200 hover:border-neutral-400 bg-white"}`}
               >
-                <div className="aspect-video w-full overflow-hidden rounded-md mb-4 bg-neutral-900">
+                <div className="relative aspect-video w-full overflow-hidden rounded-md mb-4 bg-neutral-900">
                   <img
-                    src={project.image}
-                    alt={project.title}
-                    className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
+                    src={project.images[projectImageIndexes[project.title]?.current ?? 0]}
+                    alt={`${project.title} - imagen ${(projectImageIndexes[project.title]?.current ?? 0) + 1}`}
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
+                  {projectImageIndexes[project.title]?.previous !== null &&
+                    projectImageIndexes[project.title]?.previous !== undefined && (
+                      <img
+                        key={`${project.title}-${projectImageIndexes[project.title].previous}-${projectImageIndexes[project.title].current}`}
+                        src={project.images[projectImageIndexes[project.title]?.previous ?? 0]}
+                        alt=""
+                        aria-hidden="true"
+                        className="project-image-fade absolute inset-0 h-full w-full object-cover"
+                      />
+                    )}
                 </div>
                 <h3 className="font-semibold mb-2 flex items-center justify-between">
                   <span>{project.title}</span>
@@ -303,7 +344,7 @@ export default function Portfolio() {
         </section>
 
         {/* Experiencia */}
-        <section className="space-y-6">
+        <section id="experiencia" className="space-y-6">
           <h2 className="text-xl font-semibold tracking-tight">Experiencia</h2>
           <div className="space-y-8">
             {experience.map((exp, idx) => (
@@ -321,7 +362,7 @@ export default function Portfolio() {
 
         {/* Educación */}
         <section id="formacion" className="space-y-6">
-          <h2 className="text-xl font-semibold tracking-tight">Educación</h2>
+          <h2 className="text-xl font-semibold tracking-tight">Formación</h2>
           <div className="space-y-8">
             {education.map((edu, idx) => (
               <div key={idx} className="flex flex-col sm:flex-row sm:justify-between gap-2 sm:gap-4 border-l border-neutral-800 pl-4">
@@ -360,25 +401,76 @@ export default function Portfolio() {
               {selectedProject.title}
             </h2>
 
-            {/* Video o Imagen de fallback */}
-            <div className="mt-6 aspect-video w-full rounded-xl overflow-hidden bg-black border border-neutral-800">
-              {selectedProject.videoUrl ? (
-                <video
-                  controls
-                  className="w-full h-full object-cover"
-                  poster={selectedProject.image}
-                >
-                  <source src={selectedProject.videoUrl} type="video/mp4" />
-                  Tu navegador no soporta reproducción de videos.
-                </video>
-              ) : (
+            {/* Carrusel de imágenes */}
+            <div className="mt-6">
+              <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-black border border-neutral-800">
                 <img
-                  src={selectedProject.image}
-                  alt={selectedProject.title}
-                  className="w-full h-full object-cover"
+                  src={selectedProject.images[selectedImageIndex]}
+                  alt={`${selectedProject.title} - imagen ${selectedImageIndex + 1}`}
+                  className="w-full h-full object-contain"
                 />
+                {selectedProject.images.length > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedImageIndex((index) => (index - 1 + selectedProject.images.length) % selectedProject.images.length)}
+                      aria-label="Imagen anterior"
+                      className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/70 p-2 text-white transition-colors hover:bg-black"
+                    >
+                      <ChevronLeft size={20} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedImageIndex((index) => (index + 1) % selectedProject.images.length)}
+                      aria-label="Imagen siguiente"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/70 p-2 text-white transition-colors hover:bg-black"
+                    >
+                      <ChevronRight size={20} />
+                    </button>
+                  </>
+                )}
+              </div>
+              {selectedProject.images.length > 1 && (
+                <div className="mt-3 flex justify-center gap-2" aria-label="Seleccionar imagen del proyecto">
+                  {selectedProject.images.map((_, index) => (
+                    <button
+                      key={index}
+                      type="button"
+                      onClick={() => setSelectedImageIndex(index)}
+                      aria-label={`Mostrar imagen ${index + 1}`}
+                      aria-current={index === selectedImageIndex ? "true" : undefined}
+                      className={`h-2 rounded-full transition-all ${index === selectedImageIndex ? "w-6 bg-neutral-500" : "w-2 bg-neutral-700 hover:bg-neutral-500"}`}
+                    />
+                  ))}
+                </div>
               )}
             </div>
+
+            {/* Enlaces externos opcionales */}
+            {(selectedProject.link || selectedProject.github) && (
+              <div className="mt-8 pt-4 border-t border-neutral-800 flex gap-4">
+                {selectedProject.link && (
+                  <a
+                    href={selectedProject.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-2 text-sm font-medium underline underline-offset-4 hover:opacity-80"
+                  >
+                    Pampagol.com.ar <ExternalLink size={14} />
+                  </a>
+                )}
+                {selectedProject.github && (
+                  <a
+                    href={selectedProject.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-2 text-sm font-medium underline underline-offset-4 hover:opacity-80"
+                  >
+                    Repositorio GitHub <ExternalLink size={14} />
+                  </a>
+                )}
+              </div>
+            )}
 
             {/* Descripción detallada */}
             <div className="mt-6 space-y-2">
@@ -403,7 +495,6 @@ export default function Portfolio() {
             )}
 
             {/* Tecnologías */}
-            {/* Tecnologías */}
             <div className="mt-6 space-y-3">
               <h3 className="text-sm font-semibold uppercase tracking-wider text-neutral-500">Tecnologías utilizadas</h3>
               <div className="flex flex-wrap gap-2">
@@ -426,31 +517,7 @@ export default function Portfolio() {
               </div>
             </div>
 
-            {/* Enlaces externos opcionales */}
-            {(selectedProject.link || selectedProject.github) && (
-              <div className="mt-8 pt-4 border-t border-neutral-800 flex gap-4">
-                {selectedProject.link && (
-                  <a
-                    href={selectedProject.link}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center gap-2 text-sm font-medium underline underline-offset-4 hover:opacity-80"
-                  >
-                    Ver deploy en vivo <ExternalLink size={14} />
-                  </a>
-                )}
-                {selectedProject.github && (
-                  <a
-                    href={selectedProject.github}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center gap-2 text-sm font-medium underline underline-offset-4 hover:opacity-80"
-                  >
-                    Repositorio GitHub <ExternalLink size={14} />
-                  </a>
-                )}
-              </div>
-            )}
+            
 
           </div>
         </div>
