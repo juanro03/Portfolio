@@ -167,6 +167,10 @@ export default function Portfolio() {
   const [projectImageIndexes, setProjectImageIndexes] = useState<Record<string, { current: number; previous: number | null }>>({});
 
   useEffect(() => {
+    document.documentElement.classList.toggle("dark", darkMode);
+    document.documentElement.style.colorScheme = darkMode ? "dark" : "light";
+  }, [darkMode]);
+  useEffect(() => {
     setMounted(true);
   }, []);
 

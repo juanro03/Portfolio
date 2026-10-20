@@ -15,20 +15,12 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background-color: #ffffff;
 }
 
-body {
-  background-color: #000;
-  color: #fff;
-  ::selection {
-    background-color: #fff;
-    color: #000;
-  }
+html.dark {
+  background-color: #000000;
 }
 
 @keyframes project-image-fade-out {
@@ -44,3 +36,59 @@ body {
 .project-image-fade {
   animation: project-image-fade-out 700ms ease-in-out forwards;
 }
+
+
+
+/* Colores de la barra según el tema */
+:root {
+  --scroll-thumb: #d4d4d4;
+  /* neutral-300 */
+  --scroll-thumb-hover: #a3a3a3;
+  /* neutral-400 */
+}
+
+html.dark {
+  --scroll-thumb: #262626;
+  /* neutral-800 */
+  --scroll-thumb-hover: #525252;
+  /* neutral-600 */
+}
+
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-thumb);
+  border-radius: 9999px;
+  border: 3px solid transparent;
+  /* separa el thumb del borde */
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scroll-thumb-hover);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Firefox */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scroll-thumb) transparent;
+  }
+}
+
+html:hover::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-thumb);
+}
+
