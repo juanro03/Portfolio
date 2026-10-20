@@ -44,10 +44,39 @@ const skills = [
 
 const projects: Project[] = [
   {
+    title: "Clasificación de Score Crediticio de Clientes Bancarios",
+    shortDescription: "Modelo de Machine Learning para clasificar el riesgo crediticio de clientes bancarios.",
+    fullDescription: "Proyecto de Ciencia de Datos desarrollado para la cátedra de Ciencia de Datos (UTN FRC), que clasifica a clientes bancarios en tres niveles de riesgo crediticio (Good, Standard y Poor) a partir de sus datos financieros y de comportamiento de pago.\nEl dataset, con 100.000 registros mensuales de 12.500 clientes, venía con muchos problemas de calidad: valores nulos, edades negativas, números guardados como texto. Se llevó a cabo un proceso ETL que imputa cada dato faltante con la información del mismo cliente en otros meses, sin eliminar ninguna fila.\nSe compararon seis modelos, desde una regresión logística hasta XGBoost, que alcanzó un F1 macro de 0,78. El hallazgo más interesante fue metodológico: como cada cliente aparece varias veces en el dataset, la evaluación tradicional sobreestimaba el rendimiento. Separando los datos por cliente se midió el desempeño real con clientes nuevos (F1 ≈ 0,69), una lección clave para cualquier modelo que vaya a producción.",
+    images: [
+      "/creditscore-modelos.png",
+      "/creditscore-eda.png",
+      "/creditscore-correlacion.png",
+      "/creditscore-matrices.png",
+      "/creditscore-importancia.png",
+      "/creditscore-clientes-nuevos.png",
+    ],
+    features: [
+      "Limpieza de 100.000 registros con datos faltantes o erróneos, sin perder información.",
+      "Exploración de los datos para descubrir qué distingue a un buen cliente de uno riesgoso.",
+      "Comparación de 6 modelos de Machine Learning para encontrar el que mejor predice.",
+      "Ajuste fino de cada modelo, contemplando que hay muchos más clientes de riesgo medio que de los otros niveles.",
+      "Explicación de las decisiones del modelo: qué datos pesan más al evaluar a un cliente.",
+      "Prueba con clientes que el modelo nunca vio, para medir cómo funcionaría en la vida real.",
+    ],
+    technologies: [
+      { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+      { name: "Pandas", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" },
+      { name: "scikit-learn", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg" },
+      { name: "Jupyter", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg" },
+    ],
+    link: "https://colab.research.google.com/drive/1-FXmw9MqZ83OvMpkjWD9ZjIaoHdxnsYC?usp=sharing"
+  },
+
+  {
     title: "Terrax",
     shortDescription: "Aplicación integral de gestión agrícola.",
     fullDescription: "Terrax surge como una solución de negocio a una Pyme que brinda servicios de monitoreo y aplicación con drones agrícolas. La misma permite administrar usuarios a los cuales la empresa brinda servicios, poder registrar sus lotes, cargar reportes y tener una trazabilidad total de todas las campañas, datos y actividades realizadas sobre cada lote agrícola. Permite al agricultor visualizar toda la información, facilitando la toma de decisiones.",
-    images: ["/Login.png", "/Home.png", "/Campos.png", "/Lotes.png","/Usuarios.png","/Calculadora.png",],
+    images: ["/Login.png", "/Home.png", "/Campos.png", "/Lotes.png", "/Usuarios.png", "/Calculadora.png",],
     features: [
       "Monitoreo de lotes agrícolas",
       "Carga y visualización de reportes generados por drones.",
@@ -68,7 +97,7 @@ const projects: Project[] = [
     title: "PampaGol",
     shortDescription: "Website con información de la Liga Pampeana de fútbol. Posiciones, Resultados, Noticias, Goleadores, Clubes, Foro de debates entre hinchas. Inspirado en la antigua página de 'Promiedos'",
     fullDescription: "Website con información de la Liga Pampeana de fútbol.\nSurge ante la falta de un sitio actualizado constantemente que permita visualizar todos los torneos, ya que los medios tradicionales suelen desactualizarse o la información queda dispersa en redes sociales. Por ejemplo, si me interesara ver como salió un partido del equipo de mi pueblo en el año 2022, quien hizo los goles, o qué equipo salió campeón, normalmente tendría que ir a buscar noticias en Google o ir muy atrás en en el tiempo en páginas informativas.\nMe pareció una exelente idea persistir lo que ocurre cada fin de semana en cada localidad de la provincia, año tras año, y que las personas que el día de mañana quieran revivir un recuerdo, goles, fechas, resultados o campeonatos, puedan hacerlo en un solo lugar.",
-    images: ["/pampagol.png", "/PampaInicio.png","/pampamovil1.png","/pampamovil2.png","/pampamovil3.png",],
+    images: ["/pampagol.png", "/PampaInicio.png", "/pampamovil1.png", "/pampamovil2.png", "/pampamovil3.png",],
     features: [
       "Posiciones de todas las Ligas y divisiones de la Liga Pampeana de Fútbol.",
       "Resultados fecha por fecha.",
@@ -456,7 +485,7 @@ export default function Portfolio() {
                     rel="noreferrer"
                     className="flex items-center gap-2 text-sm font-medium underline underline-offset-4 hover:opacity-80"
                   >
-                    Pampagol.com.ar <ExternalLink size={14} />
+                    Link al proyecto <ExternalLink size={14} />
                   </a>
                 )}
                 {selectedProject.github && (
@@ -502,8 +531,8 @@ export default function Portfolio() {
                   <div
                     key={tech.name}
                     className={`h-8 w-fit px-3 flex items-center gap-2 rounded-xl border transition-colors shadow-sm ${darkMode
-                        ? "bg-black border-neutral-800 ring-2 ring-neutral-800/40 text-neutral-200"
-                        : "bg-white border-neutral-200 ring-2 ring-neutral-200/40 text-neutral-800"
+                      ? "bg-black border-neutral-800 ring-2 ring-neutral-800/40 text-neutral-200"
+                      : "bg-white border-neutral-200 ring-2 ring-neutral-200/40 text-neutral-800"
                       }`}
                   >
                     <img
@@ -517,7 +546,7 @@ export default function Portfolio() {
               </div>
             </div>
 
-            
+
 
           </div>
         </div>
