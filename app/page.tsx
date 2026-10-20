@@ -33,8 +33,10 @@ const skills = [
   { name: "Spring", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" },
   { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
   { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-  { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
-  { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
+  { name: "Pandas", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" },
+  { name: "NumPy", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" },
+  { name: "scikit-learn", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg" },
+  { name: "Jupyter", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg" },
   { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
   { name: "Supabase", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" },
   { name: "MySQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
@@ -289,7 +291,7 @@ export default function Portfolio() {
         {/* Sobre mí */}
         <section className="space-y-4">
           <h2 className="text-xl font-semibold tracking-tight">Sobre mí</h2>
-          <p className={`leading-relaxed ${darkMode ? "text-neutral-400" : "text-neutral-600"}`}>
+          <p className={`leading-relaxed text-justify ${darkMode ? "text-neutral-400" : "text-neutral-600"}`}>
             {personalInfo.about}
           </p>
         </section>
@@ -301,7 +303,7 @@ export default function Portfolio() {
             {skills.map((skill, id) => (
               <div
                 key={skill.name}
-                className={`h-8 w-fit px-3 flex items-center gap-2 rounded-xl border transition-colors shadow-sm ${darkMode
+                className={`h-8 grow px-3 flex items-center justify-center gap-2 rounded-xl border transition-colors shadow-sm ${darkMode
                   ? "bg-black border-neutral-800 ring-2 ring-neutral-800/40 text-neutral-200"
                   : "bg-white border-neutral-200 ring-2 ring-neutral-200/40 text-neutral-800"
                   }`}
@@ -314,6 +316,7 @@ export default function Portfolio() {
                 <span className="text-sm font-medium">{skill.name}</span>
               </div>
             ))}
+            <div className="grow-[999]" aria-hidden="true" />
           </div>
         </section>
 
@@ -504,7 +507,7 @@ export default function Portfolio() {
             {/* Descripción detallada */}
             <div className="mt-6 space-y-2">
               <h3 className="text-sm font-semibold uppercase tracking-wider text-neutral-500">Descripción</h3>
-              <p className={`text-base leading-relaxed whitespace-pre-line ${darkMode ? "text-neutral-300" : "text-neutral-700"}`}>
+              <p className={`text-base leading-relaxed whitespace-pre-line text-justify hyphens-auto ${darkMode ? "text-neutral-300" : "text-neutral-700"}`}>
                 {selectedProject.fullDescription}
               </p>
             </div>
