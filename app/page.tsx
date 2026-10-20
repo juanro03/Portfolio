@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Mail, Moon, Sun, X, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
+import { Mail, Moon, Sun, X, ExternalLink, ChevronLeft, ChevronRight, FileText } from "lucide-react";
 import { Icons } from "./components/Icons";
 
 interface Project {
@@ -13,6 +13,7 @@ interface Project {
   technologies: { name: string; icon: string }[];
   link?: string;
   github?: string;
+  report?: string;
 }
 
 const personalInfo = {
@@ -71,7 +72,8 @@ const projects: Project[] = [
       { name: "scikit-learn", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg" },
       { name: "Jupyter", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg" },
     ],
-    link: "https://colab.research.google.com/drive/1-FXmw9MqZ83OvMpkjWD9ZjIaoHdxnsYC?usp=sharing"
+    link: "https://colab.research.google.com/drive/1-FXmw9MqZ83OvMpkjWD9ZjIaoHdxnsYC?usp=sharing",
+    report: "https://drive.google.com/file/d/1XrUDdlQLINg961EMDzx50jYrH3f8fq57/view?usp=sharing",
   },
 
   {
@@ -479,7 +481,7 @@ export default function Portfolio() {
             </div>
 
             {/* Enlaces externos opcionales */}
-            {(selectedProject.link || selectedProject.github) && (
+            {(selectedProject.link || selectedProject.github || selectedProject.report) && (
               <div className="mt-8 pt-4 border-t border-neutral-800 flex gap-4">
                 {selectedProject.link && (
                   <a
@@ -498,7 +500,17 @@ export default function Portfolio() {
                     rel="noreferrer"
                     className="flex items-center gap-2 text-sm font-medium underline underline-offset-4 hover:opacity-80"
                   >
-                    Repositorio GitHub <ExternalLink size={14} />
+                    Link al Repositorio <ExternalLink size={14} />
+                  </a>
+                )}
+                {selectedProject.report && (
+                  <a
+                    href={selectedProject.report}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-2 text-sm font-medium underline underline-offset-4 hover:opacity-80"
+                  >
+                    Link al Informe PDF <ExternalLink size={14} />
                   </a>
                 )}
               </div>
