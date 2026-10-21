@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Mail, Moon, Sun, X, ExternalLink, ChevronLeft, ChevronRight, FileText } from "lucide-react";
 import { Icons } from "./components/Icons";
 
@@ -16,40 +16,45 @@ interface Project {
   report?: string;
 }
 
+const DEVICON = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons";
+
 const personalInfo = {
   name: "Juan Pedro Roldán",
-  role: "Ingeniería en Sistemas de Información (UTN)\nFull Stack Developer | Network Administrator",
-  about: "Soy Juan, tengo 23 años y soy estudiante en el último año de Ingeniería en Sistemas de Información. Me especializo en Administración de Redes y Desarrollo Full Stack, combinando experiencia práctica en administración de infraestructura de redes con desarrollo de software. Me encuentro en la búsqueda activa de nuevas oportunidades que me permitan desplegar mi conocimiento a lo largo de mi formación en desarrollo, arquitecturas, manejos de bases de datos, aportando mi responsabilidad y pasión por el desarrollo de software.",
+  role: "Ingeniería en Sistemas de Información (UTN)\nDesarrollador de Software & Datos.",
+  about: "Soy estudiante avanzado de Ingeniería en Sistemas de Información en la UTN FRC (promedio 8,23) y me faltan dos materias para recibirme. Me enfoco en el desarrollo de software y la ciencia de datos: construí y mantengo en producción PampaGol, una aplicación web con Next.js y Supabase que centraliza el fútbol de La Pampa, y desarrollé en Python un pipeline de Machine Learning sobre 100.000 registros financieros para clasificar el riesgo crediticio de clientes bancarios. Además, trabajé un año y medio como administrador de redes en un grupo hospitalario de 5 hospitales con uns topología de alta disponibilidad. Busco mi primera posición remota como desarrollador o analista / científico de datos junior.",
   github: "https://github.com/juanro03",
   linkedin: "https://www.linkedin.com/in/juan-pedro-roldan/",
   email: "roldanjuan2003@gmail.com",
-  location: "Córdoba, Argentina",
+  location: "Córdoba, Argentina · Remoto",
   avatar: "/perfil.jpg"
 };
 
 const skills = [
-  { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-  { name: "Django", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" },
-  { name: "Java", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
-  { name: "Spring", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" },
-  { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
-  { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-  { name: "Pandas", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" },
-  { name: "NumPy", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" },
-  { name: "scikit-learn", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg" },
-  { name: "Jupyter", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg" },
-  { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
-  { name: "Supabase", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" },
-  { name: "MySQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
-  { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
-  { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
+  { name: "TypeScript", icon: `${DEVICON}/typescript/typescript-original.svg` },
+  { name: "React", icon: `${DEVICON}/react/react-original.svg` },
+  { name: "Next.js", icon: `${DEVICON}/nextjs/nextjs-original.svg` },
+  { name: "Django", icon: `${DEVICON}/django/django-plain.svg` },
+  { name: "Java", icon: `${DEVICON}/java/java-original.svg` },
+  { name: "Spring", icon: `${DEVICON}/spring/spring-original.svg` },
+  { name: "Python", icon: `${DEVICON}/python/python-original.svg` },
+  { name: "Pandas", icon: `${DEVICON}/pandas/pandas-original.svg` },
+  { name: "NumPy", icon: `${DEVICON}/numpy/numpy-original.svg` },
+  { name: "scikit-learn", icon: `${DEVICON}/scikitlearn/scikitlearn-original.svg` },
+  { name: "Matplotlib", icon: `${DEVICON}/matplotlib/matplotlib-original.svg` },
+  { name: "Jupyter", icon: `${DEVICON}/jupyter/jupyter-original.svg` },
+  { name: "PostgreSQL", icon: `${DEVICON}/postgresql/postgresql-original.svg` },
+  { name: "MySQL", icon: `${DEVICON}/mysql/mysql-original.svg` },
+  { name: "MongoDB", icon: `${DEVICON}/mongodb/mongodb-original.svg` },
+  { name: "Supabase", icon: `${DEVICON}/supabase/supabase-original.svg` },
+  { name: "Git", icon: `${DEVICON}/git/git-original.svg` },
+  { name: "Docker", icon: `${DEVICON}/docker/docker-original.svg` },
 ];
 
 const projects: Project[] = [
   {
     title: "Clasificación de Score Crediticio de Clientes Bancarios",
-    shortDescription: "Modelo de Machine Learning para clasificar el riesgo crediticio de clientes bancarios.",
-    fullDescription: "Proyecto de Ciencia de Datos desarrollado para la cátedra de Ciencia de Datos (UTN FRC), que clasifica a clientes bancarios en tres niveles de riesgo crediticio (Good, Standard y Poor) a partir de sus datos financieros y de comportamiento de pago.\nEl dataset, con 100.000 registros mensuales de 12.500 clientes, venía con muchos problemas de calidad: valores nulos, edades negativas, números guardados como texto. Se llevó a cabo un proceso ETL que imputa cada dato faltante con la información del mismo cliente en otros meses, sin eliminar ninguna fila.\nSe compararon seis modelos, desde una regresión logística hasta XGBoost, que alcanzó un F1 macro de 0,78. El hallazgo más interesante fue metodológico: como cada cliente aparece varias veces en el dataset, la evaluación tradicional sobreestimaba el rendimiento. Separando los datos por cliente se midió el desempeño real con clientes nuevos (F1 ≈ 0,69), una lección clave para cualquier modelo que vaya a producción.",
+    shortDescription: "Machine Learning sobre 100.000 registros: XGBoost alcanzó un F1 macro de 0,78, y la validación por cliente midió el rendimiento real con clientes nuevos.",
+    fullDescription: "Proyecto de Ciencia de Datos desarrollado para la cátedra de Ciencia de Datos (UTN FRC), que clasifica a clientes bancarios en tres niveles de riesgo crediticio (Good, Standard y Poor) a partir de sus datos financieros y de su comportamiento de pago.\nEl dataset, con 100.000 registros mensuales de 12.500 clientes, tenía muchos problemas de calidad: valores nulos, edades negativas y números guardados como texto. Diseñé un proceso ETL que imputa cada dato faltante con la información del mismo cliente en otros meses, sin eliminar ninguna fila.\nComparé seis modelos, desde una regresión logística hasta XGBoost, que alcanzó un F1 macro de 0,78. El hallazgo más interesante fue metodológico: como cada cliente aparece varias veces en el dataset, la evaluación tradicional sobreestimaba el rendimiento por fuga de información. Separando los datos por cliente medí el desempeño real con clientes nuevos (F1 ≈ 0,69), una lección clave para cualquier modelo que vaya a producción.",
     images: [
       "/creditscore-modelos.png",
       "/creditscore-eda.png",
@@ -60,72 +65,104 @@ const projects: Project[] = [
     ],
     features: [
       "Limpieza de 100.000 registros con datos faltantes o erróneos, sin perder información.",
-      "Exploración de los datos para descubrir qué distingue a un buen cliente de uno riesgoso.",
-      "Comparación de 6 modelos de Machine Learning para encontrar el que mejor predice.",
-      "Ajuste fino de cada modelo, contemplando que hay muchos más clientes de riesgo medio que de los otros niveles.",
-      "Explicación de las decisiones del modelo: qué datos pesan más al evaluar a un cliente.",
-      "Prueba con clientes que el modelo nunca vio, para medir cómo funcionaría en la vida real.",
+      "Análisis exploratorio para descubrir qué distingue a un buen cliente de uno riesgoso.",
+      "Comparación de 6 modelos de Machine Learning: XGBoost fue el mejor, con un F1 macro de 0,78.",
+      "Ajuste de hiperparámetros y manejo del desbalance de clases (hay muchos más clientes de riesgo medio).",
+      "Interpretación del modelo: qué variables pesan más al evaluar a un cliente.",
+      "Validación agrupada por cliente para detectar la fuga de información y medir el rendimiento real con clientes nuevos (F1 ≈ 0,69).",
     ],
     technologies: [
-      { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-      { name: "Pandas", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" },
-      { name: "scikit-learn", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg" },
-      { name: "Jupyter", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg" },
+      { name: "Python", icon: `${DEVICON}/python/python-original.svg` },
+      { name: "Pandas", icon: `${DEVICON}/pandas/pandas-original.svg` },
+      { name: "scikit-learn", icon: `${DEVICON}/scikitlearn/scikitlearn-original.svg` },
+      { name: "Matplotlib", icon: `${DEVICON}/matplotlib/matplotlib-original.svg` },
+      { name: "Jupyter", icon: `${DEVICON}/jupyter/jupyter-original.svg` },
     ],
     link: "https://colab.research.google.com/drive/1-FXmw9MqZ83OvMpkjWD9ZjIaoHdxnsYC?usp=sharing",
     report: "https://drive.google.com/file/d/1XrUDdlQLINg961EMDzx50jYrH3f8fq57/view?usp=sharing",
   },
 
   {
-    title: "Terrax",
-    shortDescription: "Aplicación integral de gestión agrícola.",
-    fullDescription: "Terrax surge como una solución de negocio a una Pyme que brinda servicios de monitoreo y aplicación con drones agrícolas. La misma permite administrar usuarios a los cuales la empresa brinda servicios, poder registrar sus lotes, cargar reportes y tener una trazabilidad total de todas las campañas, datos y actividades realizadas sobre cada lote agrícola. Permite al agricultor visualizar toda la información, facilitando la toma de decisiones.",
-    images: ["/Login.png", "/Home.png", "/Campos.png", "/Lotes.png", "/Usuarios.png", "/Calculadora.png",],
+    title: "Comprensión Visual de Escenas",
+    shortDescription: "Pipeline de visión por computadora y LLMs que detecta, segmenta y describe los objetos de una imagen, y responde preguntas sobre la escena.",
+    fullDescription: "Trabajo práctico de la cátedra de Inteligencia Artificial (UTN FRC, 2026), presentado como competencia en Kaggle. El objetivo es convertir una fotografía en una representación estructurada de la escena (un JSON con cada objeto, su máscara, posición, tamaño, color y relaciones espaciales) y responder preguntas en lenguaje natural usando solo esa representación.\nLa pipeline encadena tres modelos fundacionales sin reentrenarlos. OWLv2 detecta objetos a partir de sus nombres entre 120 categorías del dataset LVIS (F1 de cajas 0,65). SAM2 recorta la silueta exacta de cada objeto (F1 de máscaras 0,62) y segmenta correctamente el 92 % de las cajas bien detectadas. Por último, un LLM liviano (Qwen2.5-3B) traduce cada pregunta en español a una consulta estructurada, que se valida y se ejecuta con código determinista. Así, el modelo de lenguaje nunca inventa respuestas: si la pregunta no se puede responder, lo dice.\nAntes de modelar, construí un evaluador local con 17 pruebas automáticas que reproduce la política de evaluación de LVIS, y un análisis exploratorio que guió cada decisión: el 54 % de los objetos son pequeños, lo que explica buena parte de los que se pierden. Después corrí 6 experimentos controlados con reglas de decisión fijadas de antemano (un detector más grande, otros umbrales, varias plantillas de texto, otra forma de elegir la categoría). Casi ninguno superó a la línea base, y documentar por qué fue tan valioso como el resultado.",
+    images: [
+      "/imagen4.png",
+      "/imagen3.png",
+      "/imagen5.png",
+      "/imagen2.png",
+      "/imagen1.png",
+      "/escenas-deteccion.png",
+
+    ],
     features: [
-      "Monitoreo de lotes agrícolas",
+      "Detección open-vocabulary con OWLv2 sobre 120 categorías, sin reentrenar el modelo.",
+      "Segmentación de instancias con SAM2 a partir de las cajas detectadas.",
+      "Escena estructurada en JSON, validada contra un schema y con chequeos de consistencia.",
+      "Preguntas en lenguaje natural: el LLM traduce y el código responde, sin inventar datos.",
+      "Control de los textos del LLM: la fidelidad de las respuestas pasó de 0,60 a 1,00.",
+      "Trazabilidad por etapa y análisis de dónde se pierde cada uno de los 1.790 objetos anotados.",
+    ],
+    technologies: [
+      { name: "Python", icon: `${DEVICON}/python/python-original.svg` },
+      { name: "PyTorch", icon: `${DEVICON}/pytorch/pytorch-original.svg` },
+      { name: "Pandas", icon: `${DEVICON}/pandas/pandas-original.svg` },
+      { name: "Jupyter", icon: `${DEVICON}/jupyter/jupyter-original.svg` },
+    ],
+    github: "https://github.com/juanro03/Comprension_visual_escenas-TP-IA-2026",
+  },
+
+  {
+    title: "Terrax",
+    shortDescription: "Plataforma web para una pyme de servicios con drones agrícolas: lotes, campañas y reportes de cada campo en un solo lugar.",
+    fullDescription: "Terrax es mi Proyecto Final de Grado y nace como solución de negocio para una pyme que brinda servicios de monitoreo y aplicación con drones agrícolas.\nLa plataforma permite administrar a los clientes de la empresa, registrar sus campos y lotes, cargar los reportes generados por los drones y tener trazabilidad total de las campañas, los datos y las actividades realizadas sobre cada lote. El productor agropecuario accede a toda esa información desde un solo lugar, lo que le facilita la toma de decisiones.\nEl proyecto se gestionó con Scrum y Jira.",
+    images: ["/Login.png", "/Home.png", "/Campos.png", "/Lotes.png", "/Usuarios.png", "/Calculadora.png"],
+    features: [
+      "Monitoreo de lotes agrícolas.",
       "Carga y visualización de reportes generados por drones.",
       "Planificación de campañas de siembra y cosecha.",
       "Calculadora de caldo para fertilización y fumigación.",
-      "Visualización de pronosticos meteorológicos y alertas de clima en lotes.",
-      "Autenticación segura y control de roles de usuario."
+      "Pronósticos meteorológicos y alertas de clima por lote.",
+      "Autenticación segura y control de roles de usuario.",
     ],
     technologies: [
-      { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-      { name: "Django", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" },
-      { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-      { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-plain.svg" }
+      { name: "Python", icon: `${DEVICON}/python/python-original.svg` },
+      { name: "Django", icon: `${DEVICON}/django/django-plain.svg` },
+      { name: "React", icon: `${DEVICON}/react/react-original.svg` },
+      { name: "PostgreSQL", icon: `${DEVICON}/postgresql/postgresql-plain.svg` },
     ],
-    github: "https://github.com/juanro03/Terrax_App_PF_G3"
+    github: "https://github.com/juanro03/Terrax_App_PF_G3",
   },
+
   {
     title: "PampaGol",
-    shortDescription: "Website con información de la Liga Pampeana de fútbol. Posiciones, Resultados, Noticias, Goleadores, Clubes, Foro de debates entre hinchas. Inspirado en la antigua página de 'Promiedos'",
-    fullDescription: "Website con información de la Liga Pampeana de fútbol.\nSurge ante la falta de un sitio actualizado constantemente que permita visualizar todos los torneos, ya que los medios tradicionales suelen desactualizarse o la información queda dispersa en redes sociales. Por ejemplo, si me interesara ver como salió un partido del equipo de mi pueblo en el año 2022, quien hizo los goles, o qué equipo salió campeón, normalmente tendría que ir a buscar noticias en Google o ir muy atrás en en el tiempo en páginas informativas.\nMe pareció una exelente idea persistir lo que ocurre cada fin de semana en cada localidad de la provincia, año tras año, y que las personas que el día de mañana quieran revivir un recuerdo, goles, fechas, resultados o campeonatos, puedan hacerlo en un solo lugar.",
-    images: ["/pampagol.png", "/PampaInicio.png", "/pampamovil1.png", "/pampamovil2.png", "/pampamovil3.png",],
+    shortDescription: "Sitio en producción con posiciones, resultados, goleadores e historial de todas las ligas de fútbol de La Pampa.",
+    fullDescription: "PampaGol es un proyecto personal, en producción, que centraliza la información de la Liga Pampeana de Fútbol.\nSurge ante la falta de un sitio que se actualice de forma constante y muestre todos los torneos: los medios tradicionales suelen desactualizarse y la información queda dispersa en redes sociales. Por ejemplo, si quisiera saber cómo salió un partido del equipo de mi pueblo en 2022, quién hizo los goles o qué equipo salió campeón, tendría que rastrear noticias en Google o ir muy atrás en páginas informativas.\nPor eso decidí guardar lo que ocurre cada fin de semana en cada localidad de la provincia, año tras año, para que cualquiera pueda revivir resultados, goles y campeonatos en un solo lugar. Diseñé el modelo de datos y desarrollé la aplicación de punta a punta.",
+    images: ["/pampagol.png", "/PampaInicio.png", "/pampamovil1.png", "/pampamovil2.png", "/pampamovil3.png"],
     features: [
-      "Posiciones de todas las Ligas y divisiones de la Liga Pampeana de Fútbol.",
+      "Posiciones de todas las ligas y divisiones de la Liga Pampeana de Fútbol.",
       "Resultados fecha por fecha.",
       "Tablas de goleadores.",
-      "Persistencia de torneos y campeonatos pasados.",
-      "Foro de debates entre hinchas.",
-      "Información de clubes, historia, estadios.",
+      "Historial de torneos y campeonatos pasados.",
+      "Foro de debate entre hinchas.",
+      "Información de clubes: historia y estadios.",
     ],
-    // Aquí está el cambio clave para PampaGol:
     technologies: [
-      { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
-      { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-      { name: "Supabase", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" },
+      { name: "TypeScript", icon: `${DEVICON}/typescript/typescript-original.svg` },
+      { name: "Next.js", icon: `${DEVICON}/nextjs/nextjs-original.svg` },
+      { name: "React", icon: `${DEVICON}/react/react-original.svg` },
+      { name: "Supabase", icon: `${DEVICON}/supabase/supabase-original.svg` },
     ],
-    link: "https://pampagol.com.ar/"
-  }
+    link: "https://pampagol.com.ar/",
+  },
 ];
 
 const experience = [
   {
     role: "Administrador de Redes",
-    company: "Hospital Privado de Córdoba",
+    company: "Hospital Privado Universitario de Córdoba",
     date: "Abr. 2025 - Sep. 2026",
-    description: "Administrar, monitorear y asegurar la alta disponibilidad de la red de datos hospitalaria que abarca 5 hospitales, centros médicos, y farmacias en toda la ciudad de Córdoba, a cargo de una topología de más de 30 routers mikrotik, más de 150 switches Aruba/HP/Cisco. Relevamientos y soluciones de capa física y cableado estructurado.\n\nHerramientas utilizadas: Zabbix, Wireshark, OpenVPN, Mikrotik, Aruba Central, iDoit."
+    description: "Administré, monitoreé y aseguré la alta disponibilidad de la red de datos de 5 hospitales y más de 20 centros médicos y farmacias de la ciudad de Córdoba: más de 150 switches Aruba / HP / Cisco y más de 30 routers MikroTik / Fortinet. Gestioné la conectividad remota por VPN y los usuarios en Active Directory, documenté la topología, realicé relevamientos, soluciones de capa física y cableado estructurado.\n\nHerramientas utilizadas: Zabbix, Wireshark, FortiClient, OpenVPN, Active Directory, MikroTik, Aruba Central, i-doit."
   }
 ];
 
@@ -133,14 +170,14 @@ const education = [
   {
     degree: "Ingeniería en Sistemas de Información",
     institution: "Universidad Tecnológica Nacional (UTN FRC)",
-    date: "2021 - Dic. 2026",
-    description: "Promedio: 8,23.\n\nAprendrizaje: Diseño de Sistemas, Algortimos, Patrones de Diseño, Arquitectura de Software, Bases de Datos, Redes y Seguridad Informática, Desarrollo Web, Inteligencia Artificial, Ciencia de Datos."
+    date: "Mar. 2021 - Dic. 2026 (egreso previsto)",
+    description: "Promedio: 8,23.\n\nMaterias destacadas: Diseño de Sistemas, Algoritmos, Patrones de Diseño, Arquitectura de Software, Bases de Datos, Redes y Seguridad Informática, Desarrollo Web, Inteligencia Artificial, Ciencia de Datos."
   },
   {
     degree: "Full Stack Developer",
     institution: "Argentina Programa",
     date: "2023",
-    description: "Java Spring Boot, Angular, MySQL."
+    description: "Java, Spring Boot, Angular, MySQL."
   }
 ];
 
@@ -165,11 +202,15 @@ export default function Portfolio() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [projectImageIndexes, setProjectImageIndexes] = useState<Record<string, { current: number; previous: number | null }>>({});
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const closeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const MODAL_DURATION = 300;
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", darkMode);
     document.documentElement.style.colorScheme = darkMode ? "dark" : "light";
   }, [darkMode]);
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -196,15 +237,31 @@ export default function Portfolio() {
     return () => window.clearInterval(intervalId);
   }, []);
 
+  const openProject = (project: Project) => {
+    if (closeTimeout.current) clearTimeout(closeTimeout.current);
+    setSelectedImageIndex(0);
+    setSelectedProject(project);
+    // Doble rAF: primero se pinta el modal en estado "oculto" y recién después pasa a "visible",
+    // así el navegador tiene un estado inicial desde el cual animar
+    requestAnimationFrame(() => requestAnimationFrame(() => setIsModalVisible(true)));
+  };
+
+  const closeProject = () => {
+    setIsModalVisible(false);
+    closeTimeout.current = setTimeout(() => setSelectedProject(null), MODAL_DURATION);
+  };
+
+  // Cerrar con Escape
   useEffect(() => {
-    if (selectedProject) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
+    if (!selectedProject) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && closeProject();
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, [selectedProject]);
 
-  if (!mounted) return null;
+  // Limpiar el timer si el componente se desmonta
+  useEffect(() => () => { if (closeTimeout.current) clearTimeout(closeTimeout.current); }, []);
+
 
   return (
     <div className={`min-h-screen transition-colors duration-300 font-sans ${darkMode ? "bg-black text-white" : "bg-white text-black"}`}>
@@ -335,7 +392,7 @@ export default function Portfolio() {
                 key={idx}
                 onClick={() => {
                   setSelectedImageIndex(projectImageIndexes[project.title]?.current ?? 0);
-                  setSelectedProject(project);
+                  openProject(project);
                 }}
                 className={`group text-left block rounded-xl border p-4 transition-all cursor-pointer hover:-translate-y-1 ${darkMode ? "border-neutral-800 hover:border-neutral-600 bg-black" : "border-neutral-200 hover:border-neutral-400 bg-white"}`}
               >
@@ -419,14 +476,17 @@ export default function Portfolio() {
 
       {/* MODAL DETALLADO DE PROYECTO */}
       {selectedProject && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-          <div
-            className={`relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl border p-6 sm:p-8 shadow-2xl ${darkMode ? "bg-neutral-950 border-neutral-800 text-white" : "bg-white border-neutral-200 text-black"
-              }`}
+        <div onClick={closeProject} className={`fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-sm transition-opacity duration-300 ease-out motion-reduce:transition-none ${isModalVisible ? "opacity-100" : "opacity-0"}`}
+        >
+          <div onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-label={selectedProject.title}
+            className={`relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl border p-6 sm:p-8 shadow-2xl
+        transition-all duration-300 ease-out motion-reduce:transition-none
+        ${isModalVisible ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-4"}
+        ${darkMode ? "bg-neutral-950 border-neutral-800 text-white" : "bg-white border-neutral-200 text-black"}`}
           >
             {/* Botón Cerrar */}
             <button
-              onClick={() => setSelectedProject(null)}
+              onClick={closeProject}
               className={`absolute top-5 right-5 p-2 rounded-full transition-colors ${darkMode ? "hover:bg-neutral-800 text-neutral-400 hover:text-white" : "hover:bg-neutral-100 text-neutral-500 hover:text-black"
                 }`}
               aria-label="Cerrar modal"
@@ -441,19 +501,41 @@ export default function Portfolio() {
 
             {/* Carrusel de imágenes */}
             <div className="mt-6">
-              <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-black border border-neutral-800">
-                <img
-                  src={selectedProject.images[selectedImageIndex]}
-                  alt={`${selectedProject.title} - imagen ${selectedImageIndex + 1}`}
-                  className="w-full h-full object-contain"
-                />
+              <div
+                className="relative w-full rounded-xl overflow-hidden bg-black border border-neutral-800"
+                style={{ aspectRatio: "16 / 9" }}
+              >
+                {/* Imágenes apiladas: solo la seleccionada es visible */}
+                {selectedProject.images.map((image, index) => (
+                  <div
+                    key={`${image}-${index}`}
+                    aria-hidden={index !== selectedImageIndex}
+                    className={`absolute inset-0 transition-opacity duration-500 ease-in-out motion-reduce:transition-none ${index === selectedImageIndex ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                      }`}
+                  >
+                    {/* Fondo: la misma imagen, ampliada y desenfocada */}
+                    <img
+                      src={image}
+                      alt=""
+                      aria-hidden="true"
+                      className="absolute inset-0 w-full h-full object-cover scale-110 blur-2xl brightness-75 saturate-150"
+                    />
+                    {/* Imagen principal, completa y nítida */}
+                    <img
+                      src={image}
+                      alt={`${selectedProject.title} - imagen ${index + 1}`}
+                      className="relative w-full h-full object-contain drop-shadow-2xl"
+                    />
+                  </div>
+                ))}
+
                 {selectedProject.images.length > 1 && (
                   <>
                     <button
                       type="button"
                       onClick={() => setSelectedImageIndex((index) => (index - 1 + selectedProject.images.length) % selectedProject.images.length)}
                       aria-label="Imagen anterior"
-                      className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/70 p-2 text-white transition-colors hover:bg-black"
+                      className="absolute z-20 left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/70 p-2 text-white transition-colors hover:bg-black"
                     >
                       <ChevronLeft size={20} />
                     </button>
@@ -461,13 +543,14 @@ export default function Portfolio() {
                       type="button"
                       onClick={() => setSelectedImageIndex((index) => (index + 1) % selectedProject.images.length)}
                       aria-label="Imagen siguiente"
-                      className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/70 p-2 text-white transition-colors hover:bg-black"
+                      className="absolute z-20 right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/70 p-2 text-white transition-colors hover:bg-black"
                     >
                       <ChevronRight size={20} />
                     </button>
                   </>
                 )}
               </div>
+
               {selectedProject.images.length > 1 && (
                 <div className="mt-3 flex justify-center gap-2" aria-label="Seleccionar imagen del proyecto">
                   {selectedProject.images.map((_, index) => (
