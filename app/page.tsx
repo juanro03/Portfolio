@@ -21,11 +21,11 @@ const DEVICON = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons";
 const personalInfo = {
   name: "Juan Pedro Roldán",
   role: "Ingeniería en Sistemas de Información (UTN)\nDesarrollador de Software & Datos.",
-  about: "Soy estudiante avanzado de Ingeniería en Sistemas de Información en la UTN FRC (promedio 8,23) y me faltan dos materias para recibirme. Me enfoco en el desarrollo de software y la ciencia de datos: construí y mantengo en producción PampaGol, una aplicación web con Next.js y Supabase que centraliza el fútbol de La Pampa, y desarrollé en Python un pipeline de Machine Learning sobre 100.000 registros financieros para clasificar el riesgo crediticio de clientes bancarios. Además, trabajé un año y medio como administrador de redes en un grupo hospitalario de 5 hospitales con uns topología de alta disponibilidad. Busco mi primera posición remota como desarrollador o analista / científico de datos junior.",
+  about: "Estudiante avanzado de Ingeniería en Sistemas de Información, a falta de dos materias para graduarme, orientado al desarrollo de software y análisis de datos. Desarrollé plataformas web con Django, Typescript, Next.js, React y PostgreSQL, trabajando con metodologías ágiles. En el área de datos, construí en Python un pipeline de Machine Learning (limpieza, análisis exploratorio, modelado y validación) para predecir el score crediticio de clientes bancarios, sobre 100.000 registros, y un sistema de comprensión visual de escenas que combina modelos de visión y LLMs. Busco una posición en desarrollo de software, análisis o ciencia de datos, donde aplicar mi base en programación y bases de datos.",
   github: "https://github.com/juanro03",
   linkedin: "https://www.linkedin.com/in/juan-pedro-roldan/",
   email: "roldanjuan2003@gmail.com",
-  location: "Córdoba, Argentina · Remoto",
+  location: "La Pampa, Argentina | Córdoba, Argentina · Remoto",
   avatar: "/perfil.jpg"
 };
 
