@@ -20,7 +20,7 @@ const DEVICON = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons";
 
 const personalInfo = {
   name: "Juan Pedro Roldán",
-  role: "Ingeniería en Sistemas de Información (UTN)\nDesarrollador de Software & Datos.",
+  role: "Ingeniería en Sistemas de Información (UTN)\nFull Stack Developer.",
   about: "Estudiante avanzado de Ingeniería en Sistemas de Información, a falta de dos materias para graduarme, orientado al desarrollo de software y análisis de datos. Desarrollé plataformas web con Django, Typescript, Next.js, React y PostgreSQL, trabajando con metodologías ágiles. En el área de datos, construí en Python un pipeline de Machine Learning (limpieza, análisis exploratorio, modelado y validación) para predecir el score crediticio de clientes bancarios, sobre 100.000 registros, y un sistema de comprensión visual de escenas que combina modelos de visión y LLMs. Busco una posición en desarrollo de software, análisis o ciencia de datos, donde aplicar mi base en programación y bases de datos.",
   github: "https://github.com/juanro03",
   linkedin: "https://www.linkedin.com/in/juan-pedro-roldan/",
@@ -38,12 +38,7 @@ const skills = [
   { name: "Spring", icon: `${DEVICON}/spring/spring-original.svg` },
   { name: "Python", icon: `${DEVICON}/python/python-original.svg` },
   { name: "Pandas", icon: `${DEVICON}/pandas/pandas-original.svg` },
-  { name: "NumPy", icon: `${DEVICON}/numpy/numpy-original.svg` },
-  { name: "scikit-learn", icon: `${DEVICON}/scikitlearn/scikitlearn-original.svg` },
-  { name: "Matplotlib", icon: `${DEVICON}/matplotlib/matplotlib-original.svg` },
-  { name: "Jupyter", icon: `${DEVICON}/jupyter/jupyter-original.svg` },
   { name: "PostgreSQL", icon: `${DEVICON}/postgresql/postgresql-original.svg` },
-  { name: "MySQL", icon: `${DEVICON}/mysql/mysql-original.svg` },
   { name: "MongoDB", icon: `${DEVICON}/mongodb/mongodb-original.svg` },
   { name: "Supabase", icon: `${DEVICON}/supabase/supabase-original.svg` },
   { name: "Git", icon: `${DEVICON}/git/git-original.svg` },
