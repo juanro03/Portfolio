@@ -25,7 +25,7 @@ const personalInfo = {
   github: "https://github.com/juanro03",
   linkedin: "https://www.linkedin.com/in/juan-pedro-roldan/",
   email: "roldanjuan2003@gmail.com",
-  location: "La Pampa, Argentina | Córdoba, Argentina · Remoto",
+  location: "· Argentina ·",
   avatar: "/perfil.jpg"
 };
 
